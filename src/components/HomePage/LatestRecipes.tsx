@@ -32,7 +32,7 @@ export function LatestRecipes() {
           )
         `)
         .order('created_at', { ascending: false })
-        .limit(4);
+        .limit(5); // Increased from 4 to 5
       
       if (error) throw error;
       return data as Recipe[];
@@ -49,7 +49,7 @@ export function LatestRecipes() {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">המתכונים החדשים שלנו</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[...Array(4)].map((_, i) => (
+            {[...Array(5)].map((_, i) => (
               <div key={i} className="animate-pulse">
                 <div className="bg-muted rounded-lg h-48 mb-4"></div>
                 <div className="space-y-2">
@@ -85,8 +85,8 @@ export function LatestRecipes() {
         <h2 className="text-3xl font-bold text-center mb-12 text-foreground">המתכונים החדשים שלנו</h2>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          {/* Other Recipes - Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Left side: 2x2 Grid of Other Recipes */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {others.map((recipe) => (
               <Link key={recipe.id} to={`/recipe/${recipe.id}`} className="group">
                 <Card className="overflow-hidden hover-scale border-primary/20 hover:shadow-lg transition-all duration-300">
@@ -117,15 +117,15 @@ export function LatestRecipes() {
             ))}
           </div>
           
-          {/* Featured Recipe - Larger */}
+          {/* Right side: Featured Recipe - Large (spans 2 rows) */}
           {featured && (
             <Link to={`/recipe/${featured.id}`} className="group">
-              <Card className="overflow-hidden hover-scale border-primary/20 hover:shadow-xl transition-all duration-300">
+              <Card className="overflow-hidden hover-scale border-primary/20 hover:shadow-xl transition-all duration-300 h-full">
                 <div className="relative">
                   <img 
                     src={featured.image_url || "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9"}
                     alt={featured.title}
-                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-64 lg:h-80 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute top-4 right-4">
                     <Badge variant="secondary" className="bg-background/90">
@@ -137,7 +137,7 @@ export function LatestRecipes() {
                   <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
                     {featured.title}
                   </h3>
-                  <p className="text-muted-foreground mb-4 line-clamp-2">
+                  <p className="text-muted-foreground mb-4 line-clamp-3">
                     {featured.description}
                   </p>
                   <div className="flex items-center gap-4 text-sm text-muted-foreground">
