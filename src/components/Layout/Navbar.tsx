@@ -21,7 +21,7 @@ export function Navbar() {
           </Link>
           
           {/* Navigation Links */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-12">
             <Link 
               to="/" 
               className={`text-sm font-medium transition-colors hover:text-primary ${
@@ -65,7 +65,7 @@ export function Navbar() {
         
         {/* Mobile Navigation */}
         <div className="md:hidden pb-4">
-          <div className="flex justify-center space-x-6">
+          <div className="flex justify-center space-x-10">
             <Link 
               to="/" 
               className={`text-sm font-medium transition-colors hover:text-primary ${
