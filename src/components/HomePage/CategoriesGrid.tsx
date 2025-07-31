@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 interface Category {
   id: string;
@@ -21,6 +22,27 @@ const categoryEmojis: Record<string, string> = {
   'אירוח': '🎉'
 };
 
+const CategoryImageWithFallback = ({ category }: { category: Category }) => {
+  const [imageError, setImageError] = useState(false);
+
+  if (!category.image_url || imageError) {
+    return (
+      <div className="w-full h-full flex items-center justify-center text-3xl md:text-4xl">
+        {categoryEmojis[category.name_hebrew] || '🍽️'}
+      </div>
+    );
+  }
+
+  return (
+    <img 
+      src={category.image_url}
+      alt={category.name_hebrew}
+      className="w-full h-full object-cover"
+      onError={() => setImageError(true)}
+    />
+  );
+};
+
 export function CategoriesGrid() {
   const { data: categories, isLoading } = useQuery({
     queryKey: ['categories'],
@@ -32,7 +54,11 @@ export function CategoriesGrid() {
       
       if (error) throw error;
       return data as Category[];
-    }
+    },
+    staleTime: 30 * 1000, // 30 seconds
+    gcTime: 5 * 60 * 1000, // 5 minutes (renamed from cacheTime)
+    refetchOnWindowFocus: true,
+    refetchInterval: 60 * 1000, // 60 seconds
   });
 
   if (isLoading) {
@@ -67,10 +93,10 @@ export function CategoriesGrid() {
             >
               <div className="flex flex-col items-center text-center">
                 <div 
-                  className="w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center text-3xl md:text-4xl bg-card border-2 border-primary/20 group-hover:border-primary/50 hover-scale shadow-lg group-hover:shadow-xl transition-all duration-300"
+                  className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden bg-card border-2 border-primary/20 group-hover:border-primary/50 hover-scale shadow-lg group-hover:shadow-xl transition-all duration-300"
                   style={{ backgroundColor: category.hover_color ? `${category.hover_color}20` : undefined }}
                 >
-                  {categoryEmojis[category.name_hebrew] || '🍽️'}
+                  <CategoryImageWithFallback category={category} />
                 </div>
                 <h3 className="mt-4 font-semibold text-sm md:text-base text-foreground group-hover:text-primary transition-colors">
                   {category.name_hebrew}

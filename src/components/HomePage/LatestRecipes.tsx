@@ -36,7 +36,11 @@ export function LatestRecipes() {
       
       if (error) throw error;
       return data as Recipe[];
-    }
+    },
+    staleTime: 30 * 1000, // 30 seconds
+    gcTime: 5 * 60 * 1000, // 5 minutes
+    refetchOnWindowFocus: true,
+    refetchInterval: 60 * 1000, // 60 seconds
   });
 
   if (isLoading) {
