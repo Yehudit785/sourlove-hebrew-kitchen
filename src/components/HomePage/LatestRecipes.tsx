@@ -96,6 +96,11 @@ export function LatestRecipes() {
                       alt={recipe.title}
                       className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300"
                     />
+                    <div className="absolute top-2 right-2">
+                      <Badge variant="secondary" className="bg-background/90 text-xs">
+                        {recipe.categories?.name_hebrew}
+                      </Badge>
+                    </div>
                   </div>
                   <CardContent className="p-4">
                     <h4 className="font-semibold mb-1 group-hover:text-primary transition-colors line-clamp-1">
