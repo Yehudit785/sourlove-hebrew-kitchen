@@ -94,7 +94,7 @@ export function LatestRecipes() {
                     <img 
                       src={recipe.image_url || "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9"}
                       alt={recipe.title}
-                      className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute top-2 right-2">
                       <Badge variant="secondary" className="bg-background/90 text-xs">
