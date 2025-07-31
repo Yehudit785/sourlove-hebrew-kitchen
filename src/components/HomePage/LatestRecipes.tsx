@@ -85,6 +85,33 @@ export function LatestRecipes() {
         <h2 className="text-3xl font-bold text-center mb-12 text-foreground">המתכונים החדשים שלנו</h2>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+          {/* Other Recipes - Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {others.map((recipe) => (
+              <Link key={recipe.id} to={`/recipe/${recipe.id}`} className="group">
+                <Card className="overflow-hidden hover-scale border-primary/20 hover:shadow-lg transition-all duration-300">
+                  <div className="relative">
+                    <img 
+                      src={recipe.image_url || "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9"}
+                      alt={recipe.title}
+                      className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <CardContent className="p-4">
+                    <h4 className="font-semibold mb-1 group-hover:text-primary transition-colors line-clamp-1">
+                      {recipe.title}
+                    </h4>
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Clock className="h-3 w-3" />
+                      <span>{recipe.prep_time + recipe.cook_time} דק'</span>
+                      <Badge variant="outline" className="text-xs">{recipe.difficulty}</Badge>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+          
           {/* Featured Recipe - Larger */}
           {featured && (
             <Link to={`/recipe/${featured.id}`} className="group">
@@ -119,33 +146,6 @@ export function LatestRecipes() {
               </Card>
             </Link>
           )}
-          
-          {/* Other Recipes - Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {others.map((recipe) => (
-              <Link key={recipe.id} to={`/recipe/${recipe.id}`} className="group">
-                <Card className="overflow-hidden hover-scale border-primary/20 hover:shadow-lg transition-all duration-300">
-                  <div className="relative">
-                    <img 
-                      src={recipe.image_url || "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9"}
-                      alt={recipe.title}
-                      className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <CardContent className="p-4">
-                    <h4 className="font-semibold mb-1 group-hover:text-primary transition-colors line-clamp-1">
-                      {recipe.title}
-                    </h4>
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <Clock className="h-3 w-3" />
-                      <span>{recipe.prep_time + recipe.cook_time} דק'</span>
-                      <Badge variant="outline" className="text-xs">{recipe.difficulty}</Badge>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
         </div>
       </div>
     </section>
