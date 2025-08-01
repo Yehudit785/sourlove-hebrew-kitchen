@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Navbar } from "@/components/Layout/Navbar";
+import { CommentsSection } from "@/components/CommentsSection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -261,24 +262,9 @@ export default function RecipeDetailPage() {
           )}
 
           {/* Comments Section */}
-          <Card>
-            <CardContent className="p-6">
-              <h2 className="text-2xl font-bold text-foreground mb-6 text-right">תגובות</h2>
-              <div className="space-y-4">
-                {mockComments.map((comment) => (
-                  <div key={comment.id} className="border-b border-border pb-4 last:border-b-0">
-                    <div className="flex justify-between items-start mb-2">
-                      <span className="text-sm text-muted-foreground">{comment.time}</span>
-                      <span className="font-semibold text-foreground">{comment.username}</span>
-                    </div>
-                    <p className="text-foreground text-right leading-relaxed">
-                      {comment.comment}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          <div className="mb-8">
+            <CommentsSection recipeId={id} />
+          </div>
 
         </div>
       </div>
