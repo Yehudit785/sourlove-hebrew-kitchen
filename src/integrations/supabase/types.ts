@@ -82,6 +82,7 @@ export type Database = {
           image_url: string | null
           ingredients: Json | null
           instructions: Json | null
+          isactive: boolean
           popularity_count: number
           prep_time: number | null
           title: string
@@ -98,6 +99,7 @@ export type Database = {
           image_url?: string | null
           ingredients?: Json | null
           instructions?: Json | null
+          isactive?: boolean
           popularity_count?: number
           prep_time?: number | null
           title: string
@@ -114,6 +116,7 @@ export type Database = {
           image_url?: string | null
           ingredients?: Json | null
           instructions?: Json | null
+          isactive?: boolean
           popularity_count?: number
           prep_time?: number | null
           title?: string
