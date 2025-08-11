@@ -10,7 +10,7 @@ export function Navbar() {
   const location = useLocation();
   const { searchQuery, setSearchQuery, searchResults, isSearching } = useSearch();
   const [showResults, setShowResults] = useState(false);
-  const searchRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLFormElement>(null);
   
   const isActive = (path: string) => location.pathname === path;
 
@@ -28,6 +28,14 @@ export function Navbar() {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
     setShowResults(e.target.value.trim().length > 0);
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      window.location.href = `/search?q=${encodeURIComponent(searchQuery.trim())}`;
+      setShowResults(false);
+    }
   };
 
   const handleSearchFocus = () => {
@@ -78,7 +86,7 @@ export function Navbar() {
           
           {/* Search and Actions */}
           <div className="flex items-center space-x-4">
-            <div ref={searchRef} className="relative hidden sm:block">
+            <form onSubmit={handleSearchSubmit} ref={searchRef} className="relative hidden sm:block">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
               <Input 
                 placeholder="חיפוש מתכונים..."
@@ -86,6 +94,11 @@ export function Navbar() {
                 value={searchQuery}
                 onChange={handleSearchChange}
                 onFocus={handleSearchFocus}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleSearchSubmit(e);
+                  }
+                }}
               />
               {showResults && (
                 <SearchResults
@@ -94,7 +107,7 @@ export function Navbar() {
                   onClose={() => setShowResults(false)}
                 />
               )}
-            </div>
+            </form>
             <Button variant="ghost" size="icon">
               <Heart className="h-5 w-5" />
             </Button>
@@ -130,7 +143,7 @@ export function Navbar() {
             </Link>
           </div>
           <div className="mt-4">
-            <div ref={searchRef} className="relative">
+            <form onSubmit={handleSearchSubmit} ref={searchRef} className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
               <Input 
                 placeholder="חיפוש מתכונים..."
@@ -138,6 +151,11 @@ export function Navbar() {
                 value={searchQuery}
                 onChange={handleSearchChange}
                 onFocus={handleSearchFocus}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleSearchSubmit(e);
+                  }
+                }}
               />
               {showResults && (
                 <SearchResults
@@ -146,7 +164,7 @@ export function Navbar() {
                   onClose={() => setShowResults(false)}
                 />
               )}
-            </div>
+            </form>
           </div>
         </div>
       </div>

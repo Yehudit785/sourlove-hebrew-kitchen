@@ -8,6 +8,7 @@ import Recipes from "./pages/Recipes";
 import Videos from "./pages/Videos";
 import RecipeDetailPage from "./pages/RecipeDetailPage";
 import CategoryRecipes from "./pages/CategoryRecipes";
+import SearchResults from "./pages/SearchResults";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/videos" element={<Videos />} />
           <Route path="/recipe/:id" element={<RecipeDetailPage />} />
           <Route path="/category/:categoryId" element={<CategoryRecipes />} />
+          <Route path="/search" element={<SearchResults />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

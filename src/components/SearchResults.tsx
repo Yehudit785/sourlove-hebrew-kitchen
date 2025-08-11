@@ -32,8 +32,12 @@ export function SearchResults({ results, isSearching, onClose }: SearchResultsPr
           <Link
             key={recipe.id}
             to={`/recipe/${recipe.id}`}
-            onClick={onClose}
-            className="block p-3 hover:bg-muted rounded-md transition-colors"
+            onClick={(e) => {
+              e.preventDefault();
+              onClose();
+              window.location.href = `/recipe/${recipe.id}`;
+            }}
+            className="block p-3 hover:bg-muted rounded-md transition-colors cursor-pointer"
           >
             <div className="flex items-start gap-3">
               {recipe.image_url && (
